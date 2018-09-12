@@ -37,8 +37,7 @@ class NicknameController(mongoColl: MongoCollection) extends ScalatraServlet wit
   private def parseRequest2Person = {
     val obj = read[Person](request.body)
     val newObj = MongoDBObject("id" -> obj.id, "name" -> obj.name,
-      "nickName" -> obj.nickName, "description" -> obj.description,
-      "skills" -> obj.skills)
+      "nickName" -> obj.nickName, "description" -> obj.description)
     newObj
   }
 

@@ -33,13 +33,13 @@ class NicknameControllerTests extends ScalatraSpec with TestJson {
     }
 
     it("PUT /update/:id  update one person profile") {
-      put("update/10", jObject2) {
+      put("update/1", jObject2) {
         status should equal(200)
       }
     }
 
     it("delete /delete/:id  delete some body profile") {
-      delete("/delete/10") {
+      delete("/delete/1") {
         status should equal(200)
       }
     }

@@ -8,19 +8,17 @@ trait TestJson {
 
   implicit val format = DefaultFormats
 
-  val person = new Person(10,
-    "hyfq",
+  val person = new Person(1,
+    "houyafei",
     " spiderman",
-    "he can do everything he wants",
-    Set("fly", "kill", "climb"))
+    "he can do everything he wants")
 
   val jObject = write(person)
 
-  val person2 = new Person(10,
+  val person2 = new Person(1,
     "summer",
     "batman",
-    "he can do everything he wants",
-    Set("fly", "kill", "climb"))
+    "he can do everything he wants")
 
   val jObject2 = write(person2)
 
