@@ -10,7 +10,7 @@ trait TestJson {
 
   val person = new Person(1,
     "houyafei",
-    " spiderman",
+    "spiderman",
     "he can do everything he wants")
 
   val jObject = write(person)

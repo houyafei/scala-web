@@ -28,7 +28,7 @@ class NicknameControllerTests extends ScalatraSpec with TestJson {
 
     it("POST /insert  insert one person profile") {
       post("/insert", jObject) {
-        status should equal(201)
+        status should equal(200)
       }
     }
 

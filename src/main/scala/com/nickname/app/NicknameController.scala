@@ -23,31 +23,35 @@ class NicknameController(mongoColl: MongoCollection) extends ScalatraServlet wit
   }
 
   post("/insert") {
-    print("/insert")
+    println("/insert")
     try {
       val newObj: Imports.DBObject = parseRequest2Person
-      print(newObj)
+      println(newObj)
       mongoColl += newObj
     } catch {
       case e: Exception => response.sendError(202, "data format is error")
     }
-    response.setStatus(201)
+    response.setStatus(200)
+
   }
 
   private def parseRequest2Person = {
+    println(request.body)
     val obj = read[Person](request.body)
-    val newObj = MongoDBObject("id" -> obj.id, "name" -> obj.name,
-      "nickName" -> obj.nickName, "description" -> obj.description)
+    val newObj = MongoDBObject("id" -> obj.id,
+      "name" -> obj.name,
+      "nickName" -> obj.nickName,
+      "description" -> obj.description)
     newObj
   }
 
   put("/update/:id") {
-    print("/update/:id")
+    println("/update/:id")
     val query = MongoDBObject("id" -> params("id").toInt)
     val update = parseRequest2Person
     val result = mongoColl.update(query, update)
     val resultJson = "result" -> result.getN
-    print(resultJson)
+    println(resultJson)
     JsonMethods.compact(JsonMethods.render(resultJson))
   }
 
@@ -69,7 +73,7 @@ class NicknameController(mongoColl: MongoCollection) extends ScalatraServlet wit
     val query = MongoDBObject("id" -> params("id").toInt)
     val result = mongoColl.remove(query)
     val resultJson = "result" -> result.getN
-    print(resultJson)
+    println(resultJson)
     JsonMethods.compact(JsonMethods.render(resultJson))
   }
 }
