@@ -52,10 +52,8 @@ class NicknameController(mongoColl: MongoCollection) extends ScalatraServlet wit
     val query = MongoDBObject("id" -> params("id").toInt)
     val update = parseRequest2Person
     val result = mongoColl.update(query, update)
-    val resultJson = "result" -> result.getN
     response.setIntHeader("result",result.getN)
-    println(resultJson)
-    JsonMethods.compact(JsonMethods.render(resultJson))
+    status = 204
   }
 
   delete("/delete/:id") {
@@ -75,9 +73,7 @@ class NicknameController(mongoColl: MongoCollection) extends ScalatraServlet wit
 
     val query = MongoDBObject("id" -> params("id").toInt)
     val result = mongoColl.remove(query)
-    val resultJson = "result" -> result.getN
     response.setIntHeader("result",result.getN)
-    println(resultJson)
-    JsonMethods.compact(JsonMethods.render(resultJson))
+    status = 204
   }
 }

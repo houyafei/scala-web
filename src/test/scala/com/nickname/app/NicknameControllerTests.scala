@@ -27,7 +27,7 @@ class NicknameControllerTests extends ScalatraSpec with TestJson {
 
 
   private def createData(): Int = {
-    var id = 0;
+    var id = 0
     post("/insert", jObject2) {
       status should equal(201)
       id = response.getHeader("id").toInt
@@ -57,7 +57,7 @@ class NicknameControllerTests extends ScalatraSpec with TestJson {
     it("PUT /update/:id  update one person profile") {
       val id = createData()
       put(s"update/$id", jObject1) {
-        status should equal(200)
+        status should equal(204)
         mongoColl.find(MongoDBObject("id" -> id)).size should be(0)
         response.getHeader("result").toInt should be(1)
       }
@@ -66,7 +66,7 @@ class NicknameControllerTests extends ScalatraSpec with TestJson {
     it("delete /delete/:id  delete some body profile") {
       val id = createData()
       delete(s"/delete/$id") {
-        status should equal(200)
+        status should equal(204)
         mongoColl.find(MongoDBObject("id" -> id)).size should be(0)
         response.getHeader("result").toInt should be(1)
       }
