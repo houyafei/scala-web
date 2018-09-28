@@ -25,14 +25,16 @@ class NicknameController(mongoColl: MongoCollection) extends ScalatraServlet wit
   post("/insert") {
     println("/insert")
     try {
-      val newObj: Imports.DBObject = parseRequest2Person
+      val newObj = parseRequest2Person
       println(newObj)
       mongoColl += newObj
+//      println(mongoColl.findOne(newObj).get)
+      response.setIntHeader("id",read[Person](mongoColl.findOne(newObj).get.toString).id)
     } catch {
-      case e: Exception => response.sendError(202, "data format is error")
+      case e: Exception => response.sendError(400, "data format is error")
     }
-    response.setStatus(200)
-
+//    response.setIntHeader("id",read[Person](mongoColl.findOne(parseRequest2Person).toString).id)
+    response.setStatus(201)
   }
 
   private def parseRequest2Person = {
@@ -51,6 +53,7 @@ class NicknameController(mongoColl: MongoCollection) extends ScalatraServlet wit
     val update = parseRequest2Person
     val result = mongoColl.update(query, update)
     val resultJson = "result" -> result.getN
+    response.setIntHeader("result",result.getN)
     println(resultJson)
     JsonMethods.compact(JsonMethods.render(resultJson))
   }
@@ -73,6 +76,7 @@ class NicknameController(mongoColl: MongoCollection) extends ScalatraServlet wit
     val query = MongoDBObject("id" -> params("id").toInt)
     val result = mongoColl.remove(query)
     val resultJson = "result" -> result.getN
+    response.setIntHeader("result",result.getN)
     println(resultJson)
     JsonMethods.compact(JsonMethods.render(resultJson))
   }

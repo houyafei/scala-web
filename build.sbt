@@ -23,7 +23,12 @@ libraryDependencies ++= Seq(
 
   //mongo
   "org.mongodb" %% "casbah" % "3.1.1",
-  "org.json4s" %% "json4s-mongo" % "3.5.4"
+  "org.json4s" %% "json4s-mongo" % "3.5.4",
+
+  "org.mockito" %% "mockito-scala" % "0.4.4",
+  // https://mvnrepository.com/artifact/com.github.fakemongo/fongo
+  "com.github.fakemongo" % "fongo" % "2.1.1" % Test
+
 
 )
 
